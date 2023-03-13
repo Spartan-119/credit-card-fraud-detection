@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import gdown
 from tensorflow import keras
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
