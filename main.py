@@ -1,5 +1,5 @@
 import streamlit as st
-from tensorflow import keras
+import keras
 import pandas as pd
 
 
