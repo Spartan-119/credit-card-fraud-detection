@@ -1,19 +1,6 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 from tensorflow import keras
-from imblearn.over_sampling import SMOTE
-from sklearn.model_selection import train_test_split
-from keras.layers import LSTM, Dense, Embedding, Dropout,Input
-from keras import Model
-from matplotlib import pyplot
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import confusion_matrix
 import pandas as pd
-import numpy as np
 
 
 class DataHandler:
