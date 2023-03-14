@@ -8,6 +8,10 @@ class DataHandler:
         self.data = data
         self.x = data.iloc[:, : -1]
 
+    def drop_columns(self, columns):
+        self.data = self.data.drop(columns,axis =1)
+        self.x = self.x.drop(columns,axis =1)
+        return self
     def reshape_3d(self):
         self.x = self.x.values.reshape((self.x.shape[0], 1, self.x.shape[1]))
         return self
@@ -42,8 +46,8 @@ df = pd.DataFrame(
         origin_data.iloc[0]
     ]
 )
-
+cols_to_delete = ['Time (second)', 'V5', 'V6', 'V7', 'V8', 'V9','V13','V15', 'V16',  'V18', 'V19', 'V20','V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28']
 edited_df = st.experimental_data_editor(df, num_rows=1)
-edited_x, edited_df = DataHandler(edited_df).reshape_3d().get_data()
+edited_x, edited_df = DataHandler(edited_df).drop_columns(cols_to_delete).reshape_3d().get_data()
 prob = model.predict(edited_x)
 st.text(f'Probability of being Fraud With LSTM model:{prob[0][0][0]:.5f}')
