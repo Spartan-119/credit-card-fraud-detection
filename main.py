@@ -25,9 +25,9 @@ class DataHandler:
         return self.x, self.data
 
 
-is_showing_models = st.sidebar.button('Models')
-is_testing = st.sidebar.button('Testing')
-is_showing_data = st.sidebar.button('Sample Data')
+is_showing_models = st.sidebar.button('Deep Learning Models')
+is_testing = st.sidebar.button('Testing The Models')
+is_showing_data = st.sidebar.button('Samples From The Dataset')
 DATE_COLUMN = 'Amount'
 DATA_URL = 'https://drive.google.com/uc?id=1aJJOGOT-9iKKnmvF-Rg5kl2BBWLm21Nx'
 
@@ -91,6 +91,12 @@ elif is_showing_models:
 
 elif is_testing or last_button == "testing":
     st.header('Input your Test data:')
+
+    st.subheader(
+        'You can test and compare our models by typing in your own feature values.')
+
+    st.caption(
+        'Change any value in the table and press "Enter"')
     df = pd.DataFrame(
         [
             origin_data.iloc[0]
