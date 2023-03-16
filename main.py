@@ -19,9 +19,9 @@ class DataHandler:
     def get_data(self):
         return self.x, self.data
 
-
-st.title('Uber pickups in NYC')
-
+is_showing_data = st.sidebar.button('Data')
+is_showing_models = st.sidebar.button('Models')
+is_testing = st.sidebar.button('Testing')
 DATE_COLUMN = 'Amount'
 DATA_URL = 'https://drive.google.com/uc?id=1aJJOGOT-9iKKnmvF-Rg5kl2BBWLm21Nx'
 
@@ -31,23 +31,44 @@ def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
     return data
 
-
 data_load_state = st.text('Loading data...')
 origin_data = load_data(100)
+data_load_state.text("")
 
-if st.checkbox("Show Sample Data"):
+if is_showing_data:
     st.subheader('Sample Data')
     st.write(origin_data)
-data_load_state.text("")
-st.subheader('Input your Test data:')
-model = keras.models.load_model('lstm_saved_model.h5')
-df = pd.DataFrame(
-    [
-        origin_data.iloc[0]
-    ]
-)
-cols_to_delete = ['Time (second)', 'V5', 'V6', 'V7', 'V8', 'V9','V13','V15', 'V16',  'V18', 'V19', 'V20','V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28']
-edited_df = st.experimental_data_editor(df, num_rows=1)
-edited_x, edited_df = DataHandler(edited_df).drop_columns(cols_to_delete).reshape_3d().get_data()
-prob = model.predict(edited_x)
-st.text(f'Probability of being Fraud With LSTM model:{prob[0][0][0]:.5f}')
+    
+
+elif is_testing:
+    st.subheader('Input your Test data:')
+    model = keras.models.load_model('lstm_saved_model.h5')
+    df = pd.DataFrame(
+        [
+            origin_data.iloc[0]
+        ]
+    )
+    cols_to_delete = ['Time (second)', 'V5', 'V6', 'V7', 'V8', 'V9','V13','V15', 'V16',  'V18', 'V19', 'V20','V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28']
+    edited_df = st.experimental_data_editor(df, num_rows=1)
+    edited_x, edited_df = DataHandler(edited_df).drop_columns(cols_to_delete).reshape_3d().get_data()
+    prob = model.predict(edited_x)
+    st.text(f'Probability of being Fraud With LSTM model:{prob[0][0][0]:.5f}')
+
+elif is_showing_models:
+    st.subheader('Models')
+    st.text('1. CNN Model:')
+
+    
+    st.text('2. Auto Encoder:')
+
+    
+    st.text('3. LSTM Model:')
+
+    
+    st.text('4. Atention Model:')
+
+    
+else:
+    st.title('Fraud Detection Using Deep Learning')
+    
+
