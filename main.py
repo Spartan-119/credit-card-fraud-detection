@@ -57,7 +57,7 @@ elif is_showing_models:
     st.subheader('Recalls:')
     recall_dict = {
         "Recall": {"CNN": 73.95,
-                   "Auto Encoder": 50,
+                   "Auto Encoder": 87.5,
                    "LSTM": 90.54,
                    "GAN": 72.04
                    }
@@ -68,8 +68,9 @@ elif is_showing_models:
     st.subheader('Precisions:')
     prec_dict = {
         "Precision": {"CNN": 84.52,
-                      "Auto Encoder": 50,
+                      "Auto Encoder": 59.50,
                       "LSTM": 81.70,
+                      "GAN": 62
                       }
     }
     chart_prec = pd.DataFrame.from_dict(prec_dict)
@@ -78,9 +79,9 @@ elif is_showing_models:
     st.subheader('F1 Scores:')
     f1_dict = {
         "F1 Score": {"CNN": 78.88,
-                      "Auto Encoder": 50,
-                      "LSTM": 85.89
-                      # "GAN": prob_cnn[0][0]
+                      "Auto Encoder": 70.83,
+                      "LSTM": 85.89,
+                      "GAN": 65
                       }
     }
     chart_f1 = pd.DataFrame.from_dict(f1_dict)
