@@ -58,8 +58,8 @@ elif is_showing_models:
     recall_dict = {
         "Recall": {"CNN": 73.95,
                    "Auto Encoder": 50,
-                   "LSTM": 90.54
-                   # "GAN": prob_cnn[0][0]
+                   "LSTM": 90.54,
+                   "GAN": 72.04
                    }
     }
     chart_recall = pd.DataFrame.from_dict(recall_dict)
@@ -69,8 +69,7 @@ elif is_showing_models:
     prec_dict = {
         "Precision": {"CNN": 84.52,
                       "Auto Encoder": 50,
-                      "LSTM": 81.70
-                      # "GAN": prob_cnn[0][0]
+                      "LSTM": 81.70,
                       }
     }
     chart_prec = pd.DataFrame.from_dict(prec_dict)
@@ -110,7 +109,7 @@ elif is_testing or last_button == "testing":
     edited_x_lstm, edited_df_lstm = DataHandler(edited_df).drop_columns(cols_to_delete).reshape_3d_lstm().get_data()
     edited_x_cnn, edited_df_cnn = DataHandler(edited_df).reshape_3d_cnn().get_data()
     edited_x_enc, edited_df_enc = DataHandler(edited_df).get_data()
-
+    edited_x_gan, edited_df_gan = DataHandler(edited_df).drop_columns(["Time (second)", "Amount"]).get_data()
     model_lstm = keras.models.load_model('lstm_saved_model.h5')
     prob_lstm = model_lstm.predict(edited_x_lstm)
 
@@ -119,13 +118,18 @@ elif is_testing or last_button == "testing":
 
     enc_model = keras.models.load_model('auto_saved_model.h5')
     prob_enc = enc_model.predict(edited_x_enc)
-    print(prob_enc)
+
+
+
+    gan_model = keras.models.load_model('gandnn.h5')
+    prob_gan = gan_model.predict(edited_x_gan)
+    print(prob_gan)
 
     probs_dict = {
         "Fraud Probability": {"CNN": prob_cnn[0][0],
                               "Auto Encoder": prob_enc[0][0],
-                              "LSTM": prob_lstm[0][0][0]
-                              # "GAN": prob_cnn[0][0]
+                              "LSTM": prob_lstm[0][0][0],
+                              "GAN": prob_gan[0][1]
                               }
     }
     chart_data = pd.DataFrame.from_dict(probs_dict)
