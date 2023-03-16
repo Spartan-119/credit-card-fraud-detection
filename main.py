@@ -16,23 +16,26 @@ class DataHandler:
     def reshape_3d_lstm(self):
         self.x = self.x.values.reshape((self.x.shape[0], 1, self.x.shape[1]))
         return self
+
     def reshape_3d_cnn(self):
         self.x = self.x.values.reshape((self.x.shape[0], self.x.shape[1], 1))
         return self
+
     def get_data(self):
         return self.x, self.data
 
 
-
-is_showing_data = st.sidebar.button('Data')
 is_showing_models = st.sidebar.button('Models')
 is_testing = st.sidebar.button('Testing')
+is_showing_data = st.sidebar.button('Sample Data')
 DATE_COLUMN = 'Amount'
 DATA_URL = 'https://drive.google.com/uc?id=1aJJOGOT-9iKKnmvF-Rg5kl2BBWLm21Nx'
 
 if 'last_button' not in st.session_state:
     st.session_state['last_button'] = 'def'
 last_button = st.session_state['last_button']
+
+
 @st.cache_data
 def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
@@ -45,21 +48,49 @@ data_load_state.text("")
 print(last_button)
 if is_showing_data:
 
-    st.subheader('Sample Data')
+    st.header('Sample Data')
     st.write(origin_data)
     st.session_state['last_button'] = "data"
 
 elif is_showing_models:
-    st.subheader('Models')
-    st.text('1. CNN Model:')
-    st.text('2. Auto Encoder:')
-    st.text('3. LSTM Model:')
-    st.text('4. Atention Model:')
+    st.header('Models')
+    st.subheader('Recalls:')
+    recall_dict = {
+        "Recall": {"CNN": 73.95,
+                   "Auto Encoder": 50,
+                   "LSTM": 90.54
+                   # "GAN": prob_cnn[0][0]
+                   }
+    }
+    chart_recall = pd.DataFrame.from_dict(recall_dict)
+    st.bar_chart(chart_recall)
+
+    st.subheader('Precisions:')
+    prec_dict = {
+        "Precision": {"CNN": 84.52,
+                      "Auto Encoder": 50,
+                      "LSTM": 81.70
+                      # "GAN": prob_cnn[0][0]
+                      }
+    }
+    chart_prec = pd.DataFrame.from_dict(prec_dict)
+    st.bar_chart(chart_prec)
+
+    st.subheader('F1 Scores:')
+    f1_dict = {
+        "F1 Score": {"CNN": 78.88,
+                      "Auto Encoder": 50,
+                      "LSTM": 85.89
+                      # "GAN": prob_cnn[0][0]
+                      }
+    }
+    chart_f1 = pd.DataFrame.from_dict(f1_dict)
+    st.bar_chart(chart_f1)
     st.session_state['last_button'] = "models"
 
 
 elif is_testing or last_button == "testing":
-    st.subheader('Input your Test data:')
+    st.header('Input your Test data:')
     df = pd.DataFrame(
         [
             origin_data.iloc[0]
@@ -85,11 +116,11 @@ elif is_testing or last_button == "testing":
     print(prob_enc)
 
     probs_dict = {
-        "Prob": {"CNN": prob_cnn[0][0],
-            "Auto Encoder": prob_enc[0][0],
-            "LSTM": prob_lstm[0][0][0]
-            # "GAN": prob_cnn[0][0]
-            }
+        "Fraud Probability": {"CNN": prob_cnn[0][0],
+                              "Auto Encoder": prob_enc[0][0],
+                              "LSTM": prob_lstm[0][0][0]
+                              # "GAN": prob_cnn[0][0]
+                              }
     }
     chart_data = pd.DataFrame.from_dict(probs_dict)
     print(chart_data)
@@ -100,11 +131,9 @@ elif is_testing or last_button == "testing":
 else:
     st.title('Fraud Detection Using Deep Learning')
 
-    st.subheader('A comparison between different Deep learning models by: Muskan Asmath, Abin Varghese, Neha Gupta, And Amirali Monjar')
+    st.subheader(
+        'A comparison between different Deep learning models by: Muskan Asmath, Abin Varghese, Neha Gupta, And Amirali Monjar')
     st.text('In this project we trained and evaluated four different deep learning models \non '
             'Credit Card fraud detection dataset (2013).\n'
             'These four models are based on CNN, AutoEncoders, LSTM, and GAN.\n'
-               'Use the sidebar on left to navigate.')
-
-
-
+            'Use the sidebar on left to navigate.')
