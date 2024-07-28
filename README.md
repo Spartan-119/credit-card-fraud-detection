@@ -30,32 +30,6 @@ To navigate through the project, please use the sidebar on the left, which provi
 
 - **GAN Model:** Details about the Generative Adversarial Network-based model, including code, documentation, and results.
 
-## Getting Started
-
-If you wish to replicate our results or explore our models further, please refer to the respective sections for each model. You will find detailed instructions on how to set up the environment, run the code, and evaluate the models.
-
-## Data
 
 The dataset used for this project is the Credit Card Fraud Detection dataset from 2013. You can find more information about this dataset in the respective model sections.
 
-## Contributors
-
-This project was developed by [Your Name] and [Co-author's Name]. We appreciate your interest in our work and welcome contributions, feedback, and questions from the community.
-
-If you have any questions or suggestions, please feel free to open an issue or contact us directly.
-
-Thank you for visiting our repository and exploring our Credit Card Fraud Detection project. We hope you find our work informative and valuable.
-
-[License Information]
-
-[Disclaimer]
-
-[Contribution Guidelines]
-
-[Code of Conduct]
-
-[Acknowledgments]
-
-[Changelog]
-
-[Contact Information]
